@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TabListtViewController.swift
 //  HTabView
 //
 //  Created by user on 16.08.2022.
@@ -7,13 +7,10 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TabListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
-
-
 }
-
