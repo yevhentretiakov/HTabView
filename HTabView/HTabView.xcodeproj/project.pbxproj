@@ -12,6 +12,8 @@
 		CE489DBE28AB9651003F67DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE489DBD28AB9651003F67DF /* Assets.xcassets */; };
 		CE489DC128AB9651003F67DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE489DBF28AB9651003F67DF /* LaunchScreen.storyboard */; };
 		CE489DD128AB981E003F67DF /* TabListtViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489DD028AB981E003F67DF /* TabListtViewController.swift */; };
+		CE489DD328ABB3CE003F67DF /* HTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489DD228ABB3CE003F67DF /* HTabViewCell.swift */; };
+		CE489DD528ABB488003F67DF /* HTabViewCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489DD428ABB488003F67DF /* HTabViewCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		CE489DC028AB9651003F67DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE489DC228AB9651003F67DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE489DD028AB981E003F67DF /* TabListtViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabListtViewController.swift; sourceTree = "<group>"; };
+		CE489DD228ABB3CE003F67DF /* HTabViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTabViewCell.swift; sourceTree = "<group>"; };
+		CE489DD428ABB488003F67DF /* HTabViewCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTabViewCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +112,18 @@
 		CE489DCF28AB9752003F67DF /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
+				CE489DD628ABB68E003F67DF /* HTabView */,
 			);
 			path = CustomUI;
+			sourceTree = "<group>";
+		};
+		CE489DD628ABB68E003F67DF /* HTabView */ = {
+			isa = PBXGroup;
+			children = (
+				CE489DD228ABB3CE003F67DF /* HTabViewCell.swift */,
+				CE489DD428ABB488003F67DF /* HTabViewCollectionView.swift */,
+			);
+			path = HTabView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,6 +199,8 @@
 				CE489DD128AB981E003F67DF /* TabListtViewController.swift in Sources */,
 				CE489DB528AB964F003F67DF /* AppDelegate.swift in Sources */,
 				CE489DB728AB964F003F67DF /* SceneDelegate.swift in Sources */,
+				CE489DD328ABB3CE003F67DF /* HTabViewCell.swift in Sources */,
+				CE489DD528ABB488003F67DF /* HTabViewCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
