@@ -87,7 +87,8 @@ extension HTabView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HTabViewCell.reuseID, for: indexPath) as! HTabViewCell
     
         let tab = tabs[indexPath.row]
-        cell.set(label: tab, indicatorColor: indicatorColor)
+        cell.set(label: tab)
+        cell.indicatorColor = indicatorColor
         
         return cell
     }

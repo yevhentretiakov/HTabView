@@ -11,7 +11,12 @@ class HTabViewCell: UICollectionViewCell {
     // MARK: - Properties
     
     static let reuseID = "HTabViewCell"
-    private var indicatorColor: UIColor = .blue
+    
+    var indicatorColor: UIColor = .blue {
+        didSet {
+            setColorStyle()
+        }
+    }
     
     private var textLabel: UILabel = {
         let label = UILabel()
@@ -35,17 +40,7 @@ class HTabViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            if isSelected {
-                UIView.animate(withDuration: 0.2) {
-                    self.textLabel.textColor = self.indicatorColor
-                    self.bottomBorder.backgroundColor = self.indicatorColor
-                }
-            } else {
-                UIView.animate(withDuration: 0.2) {
-                    self.textLabel.textColor = .label
-                    self.bottomBorder.backgroundColor = .clear
-                }
-           }
+            setColorStyle()
         }
     }
     
@@ -54,7 +49,6 @@ class HTabViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .lightGray
         layoutLabel()
         layoutBottomBorder()
     }
@@ -65,9 +59,20 @@ class HTabViewCell: UICollectionViewCell {
     
     // MARK: - Methods
     
-    func set(label: String, indicatorColor: UIColor) {
+    func set(label: String) {
         textLabel.text = label
-        self.indicatorColor = indicatorColor
+    }
+    
+    private func setColorStyle() {
+        UIView.animate(withDuration: 0.2) {
+            if self.isSelected {
+                self.textLabel.textColor = self.indicatorColor
+                self.bottomBorder.backgroundColor = self.indicatorColor
+            } else {
+                self.textLabel.textColor = .label
+                self.bottomBorder.backgroundColor = .clear
+           }
+        }
     }
     
     // MARK: - Layout Methods

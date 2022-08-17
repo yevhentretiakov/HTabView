@@ -11,7 +11,7 @@ class TabListViewController: UIViewController {
     // MARK: - Properties
     
     private var tabView: HTabView = {
-        var tabs = ["Tab 1", "Tab 2 Tab 2", "Tab", "Tab"]
+        var tabs = ["All", "Friends", "Family", "Work"]
         let tabView = HTabView(tabs: tabs, indicatorColor: .red)
 
         return tabView
