@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HTabViewCell: UICollectionViewCell {
+final class HTabViewCell: UICollectionViewCell {
     // MARK: - Properties
     
     static let reuseID = "HTabViewCell"
@@ -24,19 +24,7 @@ class HTabViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    private var bottomBorder: UIView = {
-        let borderHeight: CGFloat = 5
-        
-        let border = UIView()
-        border.backgroundColor = .clear
-        border.layer.cornerRadius = borderHeight / 2
 
-        border.translatesAutoresizingMaskIntoConstraints = false
-        border.heightAnchor.constraint(equalToConstant: borderHeight).isActive = true
-        
-        return border
-    }()
     
     override var isSelected: Bool {
         didSet {
@@ -50,7 +38,6 @@ class HTabViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         layoutLabel()
-        layoutBottomBorder()
     }
     
     required init?(coder: NSCoder) {
@@ -67,10 +54,8 @@ class HTabViewCell: UICollectionViewCell {
         UIView.animate(withDuration: 0.2) {
             if self.isSelected {
                 self.textLabel.textColor = self.indicatorColor
-                self.bottomBorder.backgroundColor = self.indicatorColor
             } else {
                 self.textLabel.textColor = .label
-                self.bottomBorder.backgroundColor = .clear
            }
         }
     }
@@ -83,16 +68,6 @@ class HTabViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             textLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             textLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        ])
-    }
-    
-    private func layoutBottomBorder() {
-        addSubview(bottomBorder)
-        
-        NSLayoutConstraint.activate([
-            bottomBorder.leadingAnchor.constraint(equalTo: leadingAnchor),
-            bottomBorder.trailingAnchor.constraint(equalTo: trailingAnchor),
-            bottomBorder.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }
