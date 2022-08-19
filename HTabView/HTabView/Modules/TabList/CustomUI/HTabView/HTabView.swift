@@ -29,24 +29,25 @@ final class HTabView: UIView {
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: collectionViewFlowLayout)
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: contentInset, bottom: 0, right: contentInset)
+        collectionView.contentInset = UIEdgeInsets(top: 0,
+                                                   left: contentInset,
+                                                   bottom: 0,
+                                                   right: contentInset)
         collectionView.showsHorizontalScrollIndicator = false
-        
         return collectionView
     }()
     
-    private lazy var indicatorLineView: UIScrollView = {
+    private lazy var indicatorLineScrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.contentInset = UIEdgeInsets(top: 0, left: contentInset, bottom: 0, right: contentInset)
+        scrollView.contentInset = UIEdgeInsets(top: 0,
+                                               left: contentInset,
+                                               bottom: 0,
+                                               right: contentInset)
+        scrollView.showsHorizontalScrollIndicator = false
         return scrollView
     }()
     
-    private lazy var indicatorLineContentView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
-    private lazy var indicatoChevronView: UIView = {
+    private lazy var indicatorChevronView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: .zero, height: indicatorHeight))
         view.backgroundColor = indicatorColor
         view.makeRounded()
@@ -61,12 +62,21 @@ final class HTabView: UIView {
         self.indicatorColor = indicatorColor
         setupCollectionView()
         layoutCollectionView()
-        layoutIndicatorLine()
-        layoutIndicatoChevron()
+        layoutIndicatorLineView()
+        layoutIndicatorChevron()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        if chevronWidthConstraint == nil {
+            if let width = sizeForTab(at: 0)?.width {
+                chevronWidthConstraint = indicatorChevronView.widthAnchor.constraint(equalToConstant: width)
+                chevronWidthConstraint.isActive = true
+            }
+        }
     }
     
     // MARK: - Methods
@@ -75,10 +85,10 @@ final class HTabView: UIView {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(HTabViewCell.self, forCellWithReuseIdentifier: HTabViewCell.reuseID)
-        setSelectedCell(at: 0)
+        selectTab(at: 0)
     }
     
-    private func setSelectedCell(at index: Int) {
+    private func selectTab(at index: Int) {
         if tabs.indices.contains(index) {
             collectionView.selectItem(at: IndexPath(item: index, section: 0),
                                       animated: false,
@@ -89,10 +99,9 @@ final class HTabView: UIView {
     // MARK: - Layout Methods
     
     private func layoutCollectionView() {
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
         addSubview(collectionView)
         
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
@@ -100,52 +109,41 @@ final class HTabView: UIView {
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-
-    private func layoutIndicatorLine() {
-        indicatorLineView.translatesAutoresizingMaskIntoConstraints = false
+    
+    private func layoutIndicatorLineView() {
+        addSubview(indicatorLineScrollView)
         
-        addSubview(indicatorLineView)
-        
+        indicatorLineScrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            indicatorLineView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            indicatorLineView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            indicatorLineView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            indicatorLineView.heightAnchor.constraint(equalToConstant: indicatorHeight)
-        ])
-        
-        indicatorLineContentView.translatesAutoresizingMaskIntoConstraints = false
-        
-        indicatorLineView.addSubview(indicatorLineContentView)
-        NSLayoutConstraint.activate([
-            indicatorLineContentView.leadingAnchor.constraint(equalTo: indicatorLineView.leadingAnchor),
-            indicatorLineContentView.trailingAnchor.constraint(equalTo: indicatorLineView.trailingAnchor),
-
-            indicatorLineContentView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            indicatorLineContentView.heightAnchor.constraint(equalToConstant: indicatorHeight)
+            indicatorLineScrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            indicatorLineScrollView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            indicatorLineScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            indicatorLineScrollView.heightAnchor.constraint(equalToConstant: indicatorHeight)
         ])
     }
     
-    private func layoutIndicatoChevron() {
-        indicatorLineView.addSubview(indicatoChevronView)
+    private func layoutIndicatorChevron() {
+        indicatorLineScrollView.addSubview(indicatorChevronView)
         
-        let tagText = tabs[0]
-        
-        // TODO: - Create string extension to get text width
-        let firstItemSize = tagText.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17)]).width
-
-        indicatoChevronView.translatesAutoresizingMaskIntoConstraints = false
-        
-        chevronLeadingConstraint = indicatoChevronView.leadingAnchor.constraint(
-            equalTo: indicatorLineContentView.leadingAnchor
-        )
+        indicatorChevronView.translatesAutoresizingMaskIntoConstraints = false
+        chevronLeadingConstraint = indicatorChevronView.leadingAnchor.constraint(equalTo: indicatorLineScrollView.leadingAnchor)
         chevronLeadingConstraint.isActive = true
-        chevronWidthConstraint = indicatoChevronView.widthAnchor.constraint(equalToConstant: firstItemSize)
-        chevronWidthConstraint.isActive = true
-        
-        NSLayoutConstraint.activate([
-            indicatoChevronView.topAnchor.constraint(equalTo: indicatorLineContentView.topAnchor),
-            indicatoChevronView.bottomAnchor.constraint(equalTo: indicatorLineContentView.bottomAnchor)
-        ])
+        indicatorChevronView.heightAnchor.constraint(equalToConstant: indicatorHeight).isActive = true
+    }
+    
+    private func sizeForTab(at index: Int) -> CGSize? {
+        if tabs.indices.contains(index) {
+            if tabs.count <= 3 {
+                let contentWidth = self.bounds.width - contentInset * 2 - CGFloat((tabs.count - 1)) * lineSpacing
+                return CGSize(width: contentWidth / CGFloat(tabs.count),
+                              height: self.bounds.height)
+            } else {
+                return CGSize(width: tabs[index].textWidth,
+                              height: self.bounds.height)
+            }
+        } else {
+            return nil
+        }
     }
 }
 
@@ -154,8 +152,7 @@ final class HTabView: UIView {
 extension HTabView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == collectionView {
-            let x = scrollView.contentOffset.x
-            indicatorLineView.contentOffset.x = x
+            indicatorLineScrollView.contentOffset.x = scrollView.contentOffset.x
         }
     }
 }
@@ -195,13 +192,6 @@ extension HTabView: UICollectionViewDelegate {
 
 extension HTabView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if tabs.count <= 3 {
-            let contentWidth = self.bounds.width - contentInset * 2 - CGFloat((tabs.count - 1)) * lineSpacing
-            return CGSize(width: contentWidth / CGFloat(tabs.count),
-                          height: self.bounds.height)
-        } else {
-            let tagText = tabs[indexPath.item]
-            return CGSize(width: tagText.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17)]).width, height: self.bounds.height)
-        }
+        return sizeForTab(at: indexPath.row) ?? CGSize(width: 0, height: 0)
     }
 }

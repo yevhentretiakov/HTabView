@@ -15,6 +15,7 @@
 		CE489DD328ABB3CE003F67DF /* HTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489DD228ABB3CE003F67DF /* HTabViewCell.swift */; };
 		CE489DD528ABB488003F67DF /* HTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489DD428ABB488003F67DF /* HTabView.swift */; };
 		CED9527E28AF8EAF002BAFF5 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED9527D28AF8EAF002BAFF5 /* UIView+Extensions.swift */; };
+		CED9528028AFBC1B002BAFF5 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED9527F28AFBC1B002BAFF5 /* String+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		CE489DD228ABB3CE003F67DF /* HTabViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTabViewCell.swift; sourceTree = "<group>"; };
 		CE489DD428ABB488003F67DF /* HTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTabView.swift; sourceTree = "<group>"; };
 		CED9527D28AF8EAF002BAFF5 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		CED9527F28AFBC1B002BAFF5 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				CED9527D28AF8EAF002BAFF5 /* UIView+Extensions.swift */,
+				CED9527F28AFBC1B002BAFF5 /* String+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CED9527E28AF8EAF002BAFF5 /* UIView+Extensions.swift in Sources */,
+				CED9528028AFBC1B002BAFF5 /* String+Extensions.swift in Sources */,
 				CE489DD128AB981E003F67DF /* TabListtViewController.swift in Sources */,
 				CE489DB528AB964F003F67DF /* AppDelegate.swift in Sources */,
 				CE489DB728AB964F003F67DF /* SceneDelegate.swift in Sources */,

@@ -21,10 +21,8 @@ final class HTabViewCell: UICollectionViewCell {
     private var textLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
     
     override var isSelected: Bool {
         didSet {
@@ -37,7 +35,7 @@ final class HTabViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        layoutLabel()
+        layoutTextLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -62,9 +60,10 @@ final class HTabViewCell: UICollectionViewCell {
     
     // MARK: - Layout Methods
     
-    private func layoutLabel() {
+    private func layoutTextLabel() {
         addSubview(textLabel)
         
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             textLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             textLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
