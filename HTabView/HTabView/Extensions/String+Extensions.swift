@@ -8,7 +8,7 @@
 import UIKit
 
 extension String {
-    var textWidth: CGFloat {
-        return self.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17)]).width
+    func textWidth(_ font: UIFont = .systemFont(ofSize: 17)) -> CGFloat {
+        return self.size(withAttributes: [NSAttributedString.Key.font : font]).width
     }
 }

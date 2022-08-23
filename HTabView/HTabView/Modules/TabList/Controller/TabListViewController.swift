@@ -11,9 +11,9 @@ final class TabListViewController: UIViewController {
     // MARK: - Properties
     
     private var tabView: HTabView = {
-        var tabs = ["work", "home", "family", "home", "family", "home", "family", "work", "home", "home", "family", "home", "family", "work", "home"]
-        let tabView = HTabView(tabs: tabs, indicatorColor: .green)
-
+        let tabView = HTabView(tabs: ["longtab", "home", "family", "home", "family", "home", "family", "work", "home", "home", "family", "home", "family", "work", "home"],
+                               indicatorActiveColor: .green,
+                               indicatorInactiveColor: .label)
         return tabView
     }()
     
@@ -21,7 +21,6 @@ final class TabListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         layoutHTabView()
     }
     

@@ -10,13 +10,8 @@ import UIKit
 final class HTabViewCell: UICollectionViewCell {
     // MARK: - Properties
     
-    static let reuseID = "HTabViewCell"
-    
-    var indicatorColor: UIColor = .blue {
-        didSet {
-            setColorStyle()
-        }
-    }
+    private var indicatorActiveColor: UIColor = .blue
+    private var indicatorInactiveColor: UIColor = .label
     
     private var textLabel: UILabel = {
         let label = UILabel()
@@ -44,17 +39,16 @@ final class HTabViewCell: UICollectionViewCell {
     
     // MARK: - Methods
     
-    func set(label: String) {
-        textLabel.text = label
+    func configure(with tabTitle: String, and indicatorActiveColor: UIColor, and indicatorInactiveColor: UIColor) {
+        textLabel.text = tabTitle
+        self.indicatorActiveColor = indicatorActiveColor
+        self.indicatorInactiveColor = indicatorInactiveColor
+        setColorStyle()
     }
     
     private func setColorStyle() {
         UIView.animate(withDuration: 0.2) {
-            if self.isSelected {
-                self.textLabel.textColor = self.indicatorColor
-            } else {
-                self.textLabel.textColor = .label
-           }
+            self.textLabel.textColor = self.isSelected ? self.indicatorActiveColor : self.indicatorInactiveColor
         }
     }
     
@@ -62,11 +56,6 @@ final class HTabViewCell: UICollectionViewCell {
     
     private func layoutTextLabel() {
         addSubview(textLabel)
-        
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            textLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            textLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        ])
+        textLabel.center(relativeTo: self)
     }
 }

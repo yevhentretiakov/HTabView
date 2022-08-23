@@ -11,7 +11,7 @@
 		CE489DB728AB964F003F67DF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489DB628AB964F003F67DF /* SceneDelegate.swift */; };
 		CE489DBE28AB9651003F67DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE489DBD28AB9651003F67DF /* Assets.xcassets */; };
 		CE489DC128AB9651003F67DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE489DBF28AB9651003F67DF /* LaunchScreen.storyboard */; };
-		CE489DD128AB981E003F67DF /* TabListtViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489DD028AB981E003F67DF /* TabListtViewController.swift */; };
+		CE489DD128AB981E003F67DF /* TabListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489DD028AB981E003F67DF /* TabListViewController.swift */; };
 		CE489DD328ABB3CE003F67DF /* HTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489DD228ABB3CE003F67DF /* HTabViewCell.swift */; };
 		CE489DD528ABB488003F67DF /* HTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE489DD428ABB488003F67DF /* HTabView.swift */; };
 		CED9527E28AF8EAF002BAFF5 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED9527D28AF8EAF002BAFF5 /* UIView+Extensions.swift */; };
@@ -25,7 +25,7 @@
 		CE489DBD28AB9651003F67DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE489DC028AB9651003F67DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE489DC228AB9651003F67DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE489DD028AB981E003F67DF /* TabListtViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabListtViewController.swift; sourceTree = "<group>"; };
+		CE489DD028AB981E003F67DF /* TabListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabListViewController.swift; sourceTree = "<group>"; };
 		CE489DD228ABB3CE003F67DF /* HTabViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTabViewCell.swift; sourceTree = "<group>"; };
 		CE489DD428ABB488003F67DF /* HTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTabView.swift; sourceTree = "<group>"; };
 		CED9527D28AF8EAF002BAFF5 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 		CE489DCD28AB9744003F67DF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				CE489DD028AB981E003F67DF /* TabListtViewController.swift */,
+				CE489DD028AB981E003F67DF /* TabListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -212,7 +212,7 @@
 			files = (
 				CED9527E28AF8EAF002BAFF5 /* UIView+Extensions.swift in Sources */,
 				CED9528028AFBC1B002BAFF5 /* String+Extensions.swift in Sources */,
-				CE489DD128AB981E003F67DF /* TabListtViewController.swift in Sources */,
+				CE489DD128AB981E003F67DF /* TabListViewController.swift in Sources */,
 				CE489DB528AB964F003F67DF /* AppDelegate.swift in Sources */,
 				CE489DB728AB964F003F67DF /* SceneDelegate.swift in Sources */,
 				CE489DD328ABB3CE003F67DF /* HTabViewCell.swift in Sources */,
