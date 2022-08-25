@@ -18,9 +18,6 @@ final class HTabView: UIView {
     private let indicatorHeight: CGFloat = 5
     private let maxTabsCountForEqualWidth = 3
     
-    private var chevronLeadingConstraint: NSLayoutConstraint!
-    private var chevronWidthConstraint: NSLayoutConstraint!
-    
     private lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -40,7 +37,7 @@ final class HTabView: UIView {
     }()
     
     private lazy var indicatorChevronView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: .zero, height: indicatorHeight))
+        let view = UIView(frame: CGRect(x: 0, y: 47, width: .zero, height: indicatorHeight))
         view.backgroundColor = indicatorActiveColor
         view.makeRounded()
         return view
@@ -60,6 +57,10 @@ final class HTabView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        indicatorChevronView.frame.origin.y = self.frame.height - indicatorHeight
     }
     
     // MARK: - Methods
@@ -83,10 +84,12 @@ final class HTabView: UIView {
             // Change chevron width and move to position
             UIView.animate(withDuration: 0.2) {
                 if let cell = self.collectionView.cellForItem(at: indexPath) {
-                    self.chevronLeadingConstraint.constant = cell.frame.origin.x
+                    // self.chevronLeadingConstraint.constant = cell.frame.origin.x
+                    self.indicatorChevronView.frame.origin.x = cell.frame.origin.x
                 }
                 if let width = self.sizeForTab(at: index)?.width {
-                    self.chevronWidthConstraint.constant = width
+                    // self.chevronWidthConstraint.constant = width
+                    self.indicatorChevronView.frame.size.width = width
                 }
                 self.layoutIfNeeded()
             }
@@ -124,14 +127,6 @@ final class HTabView: UIView {
     
     private func layoutIndicatorChevronView() {
         collectionView.addSubview(indicatorChevronView)
-
-        indicatorChevronView.translatesAutoresizingMaskIntoConstraints = false
-        chevronLeadingConstraint = indicatorChevronView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor)
-        chevronLeadingConstraint.isActive = true
-        chevronWidthConstraint = indicatorChevronView.widthAnchor.constraint(equalToConstant: 0)
-        chevronWidthConstraint.isActive = true
-        indicatorChevronView.heightAnchor.constraint(equalToConstant: indicatorHeight).isActive = true
-        indicatorChevronView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 }
 
