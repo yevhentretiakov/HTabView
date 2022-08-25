@@ -39,16 +39,6 @@ final class HTabView: UIView {
         return collectionView
     }()
     
-    private lazy var indicatorLineScrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.contentInset = UIEdgeInsets(top: 0,
-                                               left: contentInset,
-                                               bottom: 0,
-                                               right: contentInset)
-        scrollView.showsHorizontalScrollIndicator = false
-        return scrollView
-    }()
-    
     private lazy var indicatorChevronView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: .zero, height: indicatorHeight))
         view.backgroundColor = indicatorActiveColor
@@ -64,7 +54,7 @@ final class HTabView: UIView {
         self.indicatorActiveColor = indicatorActiveColor
         self.indicatorInactiveColor = indicatorInactiveColor
         setupCollectionView()
-        layoutIndicatorLineView()
+        layoutIndicatorChevronView()
         selectTab(at: 0)
     }
     
@@ -103,45 +93,6 @@ final class HTabView: UIView {
         }
     }
     
-    // MARK: - Layout Methods
-    
-    private func layoutCollectionView() {
-        addSubview(collectionView)
-        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-    }
-    
-    private func layoutIndicatorLineView() {
-        addSubview(indicatorLineScrollView)
-        
-        indicatorLineScrollView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            indicatorLineScrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            indicatorLineScrollView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            indicatorLineScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            indicatorLineScrollView.heightAnchor.constraint(equalToConstant: indicatorHeight)
-        ])
-        
-        layoutIndicatorChevron()
-    }
-    
-    private func layoutIndicatorChevron() {
-        indicatorLineScrollView.addSubview(indicatorChevronView)
-        
-        indicatorChevronView.translatesAutoresizingMaskIntoConstraints = false
-        chevronLeadingConstraint = indicatorChevronView.leadingAnchor.constraint(equalTo: indicatorLineScrollView.leadingAnchor)
-        chevronLeadingConstraint.isActive = true
-        chevronWidthConstraint = indicatorChevronView.widthAnchor.constraint(equalToConstant: 0)
-        chevronWidthConstraint.isActive = true
-        indicatorChevronView.heightAnchor.constraint(equalToConstant: indicatorHeight).isActive = true
-    }
-    
     private func sizeForTab(at index: Int) -> CGSize? {
         if tabs.indices.contains(index) {
             if tabs.count <= maxTabsCountForEqualWidth {
@@ -156,15 +107,31 @@ final class HTabView: UIView {
             return nil
         }
     }
-}
+    
+    // MARK: - Layout Methods
+    
+    private func layoutCollectionView() {
+        addSubview(collectionView)
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+    
+    private func layoutIndicatorChevronView() {
+        collectionView.addSubview(indicatorChevronView)
 
-// MARK: - UIScrollViewDelegate
-
-extension HTabView: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == collectionView {
-            indicatorLineScrollView.contentOffset.x = scrollView.contentOffset.x
-        }
+        indicatorChevronView.translatesAutoresizingMaskIntoConstraints = false
+        chevronLeadingConstraint = indicatorChevronView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor)
+        chevronLeadingConstraint.isActive = true
+        chevronWidthConstraint = indicatorChevronView.widthAnchor.constraint(equalToConstant: 0)
+        chevronWidthConstraint.isActive = true
+        indicatorChevronView.heightAnchor.constraint(equalToConstant: indicatorHeight).isActive = true
+        indicatorChevronView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 }
 
