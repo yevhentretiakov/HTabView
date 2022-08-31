@@ -2,7 +2,7 @@
 //  String+Extensions.swift
 //  HTabView
 //
-//  Created by user on 19.08.2022.
+//  Created by Yevhen Tretiakov on 19.08.2022.
 //
 
 import UIKit

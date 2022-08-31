@@ -2,21 +2,21 @@
 //  HTabView.swift
 //  HTabView
 //
-//  Created by user on 16.08.2022.
+//  Created by Yevhen Tretiakov on 16.08.2022.
 //
 
 import UIKit
 
 final class HTabView: UIView {
     // MARK: - Properties
-    
-    private var tabs: [String]!
-    private var indicatorActiveColor: UIColor!
-    private var indicatorInactiveColor: UIColor!
+    private var tabs: [String]
+    private var indicatorActiveColor: UIColor
+    private var indicatorInactiveColor: UIColor
     private let lineSpacing: CGFloat = 20
     private let contentInset: CGFloat = 15
     private let indicatorHeight: CGFloat = 5
     private let maxTabsCountForEqualWidth = 3
+    private var selectedTabIndex = 0
     
     private lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -37,7 +37,7 @@ final class HTabView: UIView {
     }()
     
     private lazy var indicatorChevronView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 47, width: .zero, height: indicatorHeight))
+        let view = UIView(frame: CGRect(x: .zero, y: .zero, width: .zero, height: indicatorHeight))
         view.backgroundColor = indicatorActiveColor
         view.makeRounded()
         return view
@@ -46,13 +46,12 @@ final class HTabView: UIView {
     // MARK: - Life Cycle Methods
     
     init(tabs: [String], indicatorActiveColor: UIColor, indicatorInactiveColor: UIColor) {
-        super.init(frame: .zero)
         self.tabs = tabs
         self.indicatorActiveColor = indicatorActiveColor
         self.indicatorInactiveColor = indicatorInactiveColor
+        super.init(frame: .zero)
         setupCollectionView()
-        layoutIndicatorChevronView()
-        selectTab(at: 0)
+        addIndicatorChevronView()
     }
     
     required init?(coder: NSCoder) {
@@ -60,7 +59,8 @@ final class HTabView: UIView {
     }
     
     override func layoutSubviews() {
-        indicatorChevronView.frame.origin.y = self.frame.height - indicatorHeight
+        super.layoutSubviews()
+        selectTab(at: selectedTabIndex)
     }
     
     // MARK: - Methods
@@ -74,24 +74,23 @@ final class HTabView: UIView {
     
     private func selectTab(at index: Int) {
         if tabs.indices.contains(index) {
+            selectedTabIndex = index
             let indexPath = IndexPath(item: index, section: 0)
-            // Change tab color
             collectionView.selectItem(at: indexPath,
                                       animated: false,
                                       scrollPosition:.top)
-            // Scroll to item
             collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            // Change chevron width and move to position
-            UIView.animate(withDuration: 0.2) {
-                if let cell = self.collectionView.cellForItem(at: indexPath) {
-                    // self.chevronLeadingConstraint.constant = cell.frame.origin.x
-                    self.indicatorChevronView.frame.origin.x = cell.frame.origin.x
-                }
-                if let width = self.sizeForTab(at: index)?.width {
-                    // self.chevronWidthConstraint.constant = width
-                    self.indicatorChevronView.frame.size.width = width
-                }
-                self.layoutIfNeeded()
+            updateSelectedIndicator(at: index)
+        }
+    }
+    
+    private func updateSelectedIndicator(at index: Int) {
+        let indexPath = IndexPath(item: index, section: 0)
+        indicatorChevronView.frame.origin.y = self.frame.height - indicatorHeight
+        UIView.animate(withDuration: 0.2) {
+            if let cellAttributes = self.collectionView.layoutAttributesForItem(at: indexPath) {
+                self.indicatorChevronView.frame.origin.x = cellAttributes.frame.origin.x
+                self.indicatorChevronView.frame.size.width = cellAttributes.size.width
             }
         }
     }
@@ -118,36 +117,35 @@ final class HTabView: UIView {
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     
-    private func layoutIndicatorChevronView() {
+    private func addIndicatorChevronView() {
         collectionView.addSubview(indicatorChevronView)
     }
 }
 
 // MARK: - UICollectionViewDataSource
-
 extension HTabView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         tabs.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HTabViewCell.self), for: indexPath) as! HTabViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HTabViewCell.self),
+                                                      for: indexPath) as! HTabViewCell
         
         let tabTitle = tabs[indexPath.row]
-        cell.configure(with: tabTitle, and: indicatorActiveColor, and: indicatorInactiveColor)
+        cell.configure(with: tabTitle, indicatorActiveColor, indicatorInactiveColor)
         
         return cell
     }
 }
 
 // MARK: - UICollectionViewDelegate
-
 extension HTabView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectTab(at: indexPath.row)
@@ -155,7 +153,6 @@ extension HTabView: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-
 extension HTabView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return sizeForTab(at: indexPath.row) ?? .zero

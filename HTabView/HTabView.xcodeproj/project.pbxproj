@@ -62,7 +62,6 @@
 		CE489DB328AB964F003F67DF /* HTabView */ = {
 			isa = PBXGroup;
 			children = (
-				CED9527C28AF8E9E002BAFF5 /* Extensions */,
 				CE489DC828AB9705003F67DF /* Application */,
 				CE489DCA28AB971E003F67DF /* Modules */,
 				CE489DC928AB9712003F67DF /* Support Files */,
@@ -125,6 +124,7 @@
 		CE489DD628ABB68E003F67DF /* HTabView */ = {
 			isa = PBXGroup;
 			children = (
+				CED9527C28AF8E9E002BAFF5 /* Extensions */,
 				CE489DD428ABB488003F67DF /* HTabView.swift */,
 				CE489DD228ABB3CE003F67DF /* HTabViewCell.swift */,
 			);

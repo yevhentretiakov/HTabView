@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  HTabView
 //
-//  Created by user on 16.08.2022.
+//  Created by Yevhen Tretiakov on 16.08.2022.
 //
 
 import UIKit

@@ -2,14 +2,13 @@
 //  HTabViewCell.swift
 //  HTabView
 //
-//  Created by user on 16.08.2022.
+//  Created by Yevhen Tretiakov on 16.08.2022.
 //
 
 import UIKit
 
 final class HTabViewCell: UICollectionViewCell {
     // MARK: - Properties
-    
     private var indicatorActiveColor: UIColor = .blue
     private var indicatorInactiveColor: UIColor = .label
     
@@ -26,10 +25,8 @@ final class HTabViewCell: UICollectionViewCell {
     }
     
     // MARK: - Life Cycle Methods
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         layoutTextLabel()
     }
     
@@ -38,8 +35,7 @@ final class HTabViewCell: UICollectionViewCell {
     }
     
     // MARK: - Methods
-    
-    func configure(with tabTitle: String, and indicatorActiveColor: UIColor, and indicatorInactiveColor: UIColor) {
+    func configure(with tabTitle: String, _ indicatorActiveColor: UIColor, _ indicatorInactiveColor: UIColor) {
         textLabel.text = tabTitle
         self.indicatorActiveColor = indicatorActiveColor
         self.indicatorInactiveColor = indicatorInactiveColor
@@ -53,7 +49,6 @@ final class HTabViewCell: UICollectionViewCell {
     }
     
     // MARK: - Layout Methods
-    
     private func layoutTextLabel() {
         addSubview(textLabel)
         textLabel.center(relativeTo: self)
