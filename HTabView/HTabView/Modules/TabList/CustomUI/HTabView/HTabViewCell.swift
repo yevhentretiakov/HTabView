@@ -35,7 +35,7 @@ final class HTabViewCell: UICollectionViewCell {
     }
     
     // MARK: - Methods
-    func configure(with tabTitle: String, _ indicatorActiveColor: UIColor, _ indicatorInactiveColor: UIColor) {
+    func configure(with tabTitle: String, indicatorActiveColor: UIColor, indicatorInactiveColor: UIColor) {
         textLabel.text = tabTitle
         self.indicatorActiveColor = indicatorActiveColor
         self.indicatorInactiveColor = indicatorInactiveColor

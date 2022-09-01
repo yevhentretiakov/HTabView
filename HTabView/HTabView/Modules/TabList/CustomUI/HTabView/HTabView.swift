@@ -139,7 +139,7 @@ extension HTabView: UICollectionViewDataSource {
                                                       for: indexPath) as! HTabViewCell
         
         let tabTitle = tabs[indexPath.row]
-        cell.configure(with: tabTitle, indicatorActiveColor, indicatorInactiveColor)
+        cell.configure(with: tabTitle, indicatorActiveColor: indicatorActiveColor, indicatorInactiveColor: indicatorInactiveColor)
         
         return cell
     }
